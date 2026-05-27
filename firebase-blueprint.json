@@ -1,0 +1,101 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user state, gamification assets, study and exam date configurations",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "coins": { "type": "integer" },
+        "experience": { "type": "integer" },
+        "level": { "type": "integer" },
+        "unlockedThemes": { "type": "array" },
+        "unlockedSounds": { "type": "array" },
+        "currentTheme": { "type": "string" },
+        "currentSound": { "type": "string" },
+        "startDate": { "type": "string" },
+        "examDate": { "type": "string" },
+        "studyDays": { "type": "integer" },
+        "reviseDays": { "type": "integer" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "coins", "level"]
+    },
+    "Chapter": {
+      "title": "Syllabus Chapter",
+      "description": "Represents a single chapter syllabus unit with status, tracking parameters, notes, and custom text attachments",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "subject": { "type": "string" },
+        "section": { "type": "string" },
+        "chapterName": { "type": "string" },
+        "status": { "type": "string" },
+        "studyProgress": { "type": "integer" },
+        "reviseProgress": { "type": "integer" },
+        "estimatedHours": { "type": "number" },
+        "difficulty": { "type": "string" },
+        "coinsReward": { "type": "integer" },
+        "notes": { "type": "string" },
+        "todos": { "type": "array" },
+        "attachments": { "type": "array" },
+        "routineDayIndex": { "type": "integer" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "subject", "section", "chapterName", "status", "studyProgress", "reviseProgress", "estimatedHours", "difficulty", "coinsReward"]
+    },
+    "Routine": {
+      "title": "Daily Routine Task",
+      "description": "Stores routine entries representing chapters and section tasks scheduled on a customized day",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "dayIndex": { "type": "integer" },
+        "date": { "type": "string" },
+        "chapterIds": { "type": "array" },
+        "notes": { "type": "string" },
+        "isCompleted": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "dayIndex", "isCompleted"]
+    },
+    "SessionLog": {
+      "title": "Study Session Log",
+      "description": "Logs details of a completed study session for burnup statistics and charts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "chapterId": { "type": "string" },
+        "chapterName": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "durationMinutes": { "type": "integer" },
+        "date": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "userId", "chapterId", "chapterName", "subjectName", "durationMinutes", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User account documents"
+    },
+    "/users/{userId}/chapters/{chapterId}": {
+      "schema": "Chapter",
+      "description": "Syllabus chapters and current study/revise progress settings"
+    },
+    "/users/{userId}/routines/{routineId}": {
+      "schema": "Routine",
+      "description": "Day-by-day scheduler items configuration for students"
+    },
+    "/users/{userId}/sessionLogs/{logId}": {
+      "schema": "SessionLog",
+      "description": "History of daily study minutes logged for charts"
+    }
+  }
+}

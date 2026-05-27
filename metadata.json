@@ -1,0 +1,6 @@
+{
+  "name": "Pre-Test Planner",
+  "description": "Track and manage syllabus tracking, routine schedules, coin gamification, and stats with AI-powered import tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
